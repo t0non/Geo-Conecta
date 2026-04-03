@@ -1,0 +1,28 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-mining",
+      "description": "Operação mineira profissional em escala industrial",
+      "imageUrl": "https://files.catbox.moe/82a7uh.png",
+      "imageHint": "mining site"
+    },
+    {
+      "id": "legal-consultation",
+      "description": "Legal documents and professional consultation",
+      "imageUrl": "https://picsum.photos/seed/legal1/800/600",
+      "imageHint": "legal document"
+    },
+    {
+      "id": "compliance-team",
+      "description": "Team of experts reviewing compliance checklists",
+      "imageUrl": "https://picsum.photos/seed/comp1/600/400",
+      "imageHint": "business compliance"
+    },
+    {
+      "id": "license-acquisition",
+      "description": "Official government licenses and permits",
+      "imageUrl": "https://picsum.photos/seed/lic1/600/400",
+      "imageHint": "official certificate"
+    }
+  ]
+}
