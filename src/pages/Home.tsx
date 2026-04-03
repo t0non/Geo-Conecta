@@ -71,9 +71,34 @@ function AnimatedStat({ value, delay }: { value: string, delay: number }) {
 
 export default function Home() {
   const heroRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] }); // [PERFORMANCE] Limitar scroll observation
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]); 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]); // [CLEAN CODE] Removidos transforms (ex: scale) não utilizados.
+
+  // Form State
+  const [formData, setFormData] = useState({ name: "", email: "", area: "Mineração & ANM", message: "" });
+  const [formErrors, setFormErrors] = useState({ name: false, email: false, message: false });
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors = {
+      name: formData.name.trim() === "",
+      email: formData.email.trim() === "" || !formData.email.includes("@"),
+      message: formData.message.trim() === "",
+    };
+    
+    setFormErrors(newErrors);
+
+    if (Object.values(newErrors).some(error => error)) {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const messageContent = `Olá! Vim pelo site da Geo-Conecta.\n\nNome: ${formData.name}\nUnidade de Negócio: ${formData.area}\n\n${formData.message}\n\nEmail: ${formData.email}`;
+    window.open(`https://wa.me/553193408908?text=${encodeURIComponent(messageContent)}`, "_blank");
+    setFormData({ name: "", email: "", area: "Mineração & ANM", message: "" });
+  };
 
   // [PERFORMANCE] Memoização de dados estáticos para evitar recriação de arrays/objetos complexos a cada renderização do componente Home.
   // Impacto: Reduz acionamentos desnecessários do Garbage Collector e poupa CPU se o estado do componente pai sofrer mutação.
@@ -437,7 +462,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1 font-display">Central de Atendimento</div>
-                    <div className="text-lg font-medium">+55 (31) 99999-9999</div>
+                    <div className="text-lg font-medium">+55 (31) 93408-9088</div>
                   </div>
                 </div>
               </div>
@@ -445,20 +470,47 @@ export default function Home() {
 
             <div className="lg:col-span-7">
               <div className="bg-zinc-50 p-6 lg:p-8 xl:p-12 rounded-[2rem] lg:rounded-[3rem] shadow-sm">
-                <form className="space-y-6 sm:space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <form ref={formRef} className="space-y-6 sm:space-y-8" onSubmit={handleFormSubmit}>
+                  {Object.values(formErrors).some(Boolean) && (
+                    <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm font-medium border border-red-100 flex items-center gap-3">
+                      Por favor, preencha os campos destacados para continuar.
+                    </div>
+                  )}
                   <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
                     <div className="space-y-3 sm:space-y-4">
                       <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">Nome Completo</label>
-                      <input type="text" className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg" placeholder="Ex: João Silva" />
+                      <input 
+                        type="text" 
+                        value={formData.name}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (formErrors.name) setFormErrors({ ...formErrors, name: false });
+                        }}
+                        className={`w-full bg-transparent border-b py-4 outline-none transition-colors font-light text-lg ${formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-zinc-200 focus:border-zinc-900'}`} 
+                        placeholder="Ex: João Silva" 
+                      />
                     </div>
                     <div className="space-y-4">
                       <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">E-mail Corporativo</label>
-                      <input type="email" className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg" placeholder="empresa@email.com" />
+                      <input 
+                        type="email" 
+                        value={formData.email}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (formErrors.email) setFormErrors({ ...formErrors, email: false });
+                        }}
+                        className={`w-full bg-transparent border-b py-4 outline-none transition-colors font-light text-lg ${formErrors.email ? 'border-red-500 focus:border-red-500' : 'border-zinc-200 focus:border-zinc-900'}`} 
+                        placeholder="empresa@email.com" 
+                      />
                     </div>
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">Área de Interesse</label>
-                    <select className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg appearance-none">
+                    <select 
+                      value={formData.area}
+                      onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                      className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg appearance-none"
+                    >
                       <option>Mineração & ANM</option>
                       <option>Geologia Estratégica</option>
                       <option>Licenciamento Ambiental</option>
@@ -467,14 +519,28 @@ export default function Home() {
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">Mensagem</label>
-                    <textarea rows={4} className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg resize-none" placeholder="Descreva brevemente sua demanda..."></textarea>
+                    <textarea 
+                      rows={4} 
+                      value={formData.message}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (formErrors.message) setFormErrors({ ...formErrors, message: false });
+                      }}
+                      className={`w-full bg-transparent border-b py-4 outline-none transition-colors font-light text-lg resize-none ${formErrors.message ? 'border-red-500 focus:border-red-500' : 'border-zinc-200 focus:border-zinc-900'}`} 
+                        placeholder="Descreva brevemente sua demanda..."
+                    ></textarea>
                   </div>
-                  <HoverBorderGradient 
-                    containerClassName="flex justify-center pt-4"
-                    className="w-full sm:w-auto sm:px-12 py-6 font-bold text-[12px] uppercase tracking-[0.3em] font-display"
-                  >
-                    Enviar Solicitação
-                  </HoverBorderGradient>
+                  <div className="flex justify-center pt-4">
+                    <button type="submit" className="w-full sm:w-auto h-full outline-none focus:outline-none">
+                      <HoverBorderGradient 
+                        as="div"
+                        containerClassName="w-full"
+                        className="w-full sm:w-auto sm:px-12 py-6 font-bold text-[12px] uppercase tracking-[0.3em] font-display"
+                      >
+                        Enviar Solicitação
+                      </HoverBorderGradient>
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>

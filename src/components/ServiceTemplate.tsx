@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, AlertTriangle, ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import { WhatsAppIcon } from "./ui/whatsapp-icon";
@@ -65,6 +65,31 @@ interface ServiceTemplateProps {
 }
 
 export default function ServiceTemplate({ data }: ServiceTemplateProps) {
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  // Form State
+  const [formData, setFormData] = useState({ name: "", email: "", subject: data.contact.options[0] || "", message: "" });
+  const [formErrors, setFormErrors] = useState({ name: false, email: false, message: false });
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors = {
+      name: formData.name.trim() === "",
+      email: formData.email.trim() === "" || !formData.email.includes("@"),
+      message: formData.message.trim() === "",
+    };
+    
+    setFormErrors(newErrors);
+
+    if (Object.values(newErrors).some(error => error)) {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const messageContent = `Olá! Vim pela página de ${data.hero.title}.\n\nNome: ${formData.name}\nAssunto: ${formData.subject}\n\n${formData.message}\n\nEmail: ${formData.email}`;
+    window.open(`https://wa.me/553193408908?text=${encodeURIComponent(messageContent)}`, "_blank");
+    setFormData({ name: "", email: "", subject: data.contact.options[0] || "", message: "" });
+  };
   return (
     <div className="bg-white">
       {/* Section 1: Hero - Following Home Style */}
@@ -276,8 +301,10 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                 </p>
                 <div className="mt-auto">
                   <HoverBorderGradient 
-                    as={Link}
-                    to={`/servico/${card.id}`}
+                    as="a" 
+                    href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Estou interessado no seviço de " + card.title + " da Geo-Conecta.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-xs font-bold uppercase tracking-[0.2em] flex items-center justify-center whitespace-nowrap group/btn font-instrumental-sans"
                   >
                     Contratar Serviço <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -376,7 +403,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1 font-display">WhatsApp Especialista</div>
-                    <div className="text-lg font-medium">+55 (31) 99999-9999</div>
+                    <div className="text-lg font-medium">+55 (31) 93408-9088</div>
                   </div>
                 </div>
 
@@ -394,20 +421,47 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
 
             <div className="lg:col-span-7">
               <div className="bg-zinc-50 p-6 lg:p-10 rounded-[2rem] lg:rounded-[3rem] border border-zinc-100">
-                <form className="space-y-8 sm:space-y-10" onSubmit={(e) => e.preventDefault()}>
+                <form ref={formRef} className="space-y-8 sm:space-y-10" onSubmit={handleFormSubmit}>
+                  {Object.values(formErrors).some(Boolean) && (
+                    <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm font-medium border border-red-100 flex items-center gap-3">
+                      Por favor, preencha os campos destacados para continuar.
+                    </div>
+                  )}
                   <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
                     <div className="space-y-3 sm:space-y-4">
                       <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">{data.contact.fields.name}</label>
-                      <input type="text" className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg" placeholder="Ex: João Silva" />
+                      <input 
+                        type="text" 
+                        value={formData.name}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (formErrors.name) setFormErrors({ ...formErrors, name: false });
+                        }}
+                        className={`w-full bg-transparent border-b py-4 outline-none transition-colors font-light text-lg ${formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-zinc-200 focus:border-zinc-900'}`} 
+                        placeholder="Ex: João Silva" 
+                      />
                     </div>
                     <div className="space-y-4">
                       <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">{data.contact.fields.email}</label>
-                      <input type="email" className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg" placeholder="empresa@email.com" />
+                      <input 
+                        type="email" 
+                        value={formData.email}
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (formErrors.email) setFormErrors({ ...formErrors, email: false });
+                        }}
+                        className={`w-full bg-transparent border-b py-4 outline-none transition-colors font-light text-lg ${formErrors.email ? 'border-red-500 focus:border-red-500' : 'border-zinc-200 focus:border-zinc-900'}`} 
+                        placeholder="empresa@email.com" 
+                      />
                     </div>
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">{data.contact.fields.subject}</label>
-                    <select className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg appearance-none">
+                    <select 
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg appearance-none"
+                    >
                       {data.contact.options.map((option, i) => (
                         <option key={i}>{option}</option>
                       ))}
@@ -415,14 +469,28 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                   </div>
                   <div className="space-y-4">
                     <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-display">{data.contact.fields.message}</label>
-                    <textarea rows={4} className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg resize-none" placeholder="Descreva brevemente sua demanda..."></textarea>
+                    <textarea 
+                      rows={4} 
+                      value={formData.message}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (formErrors.message) setFormErrors({ ...formErrors, message: false });
+                      }}
+                       className={`w-full bg-transparent border-b py-4 outline-none transition-colors font-light text-lg resize-none ${formErrors.message ? 'border-red-500 focus:border-red-500' : 'border-zinc-200 focus:border-zinc-900'}`} 
+                        placeholder="Descreva brevemente sua demanda..."
+                    ></textarea>
                   </div>
-                  <HoverBorderGradient 
-                    containerClassName="w-full"
-                    className="w-full py-6 font-bold text-[12px] uppercase tracking-[0.3em] font-display"
-                  >
-                    {data.contact.buttonText}
-                  </HoverBorderGradient>
+                  <div className="flex pt-4">
+                    <button type="submit" className="w-full sm:w-auto h-full outline-none focus:outline-none">
+                      <HoverBorderGradient 
+                        as="div"
+                        containerClassName="w-full"
+                        className="w-full py-6 font-bold text-[12px] uppercase tracking-[0.3em] font-display"
+                      >
+                        {data.contact.buttonText}
+                      </HoverBorderGradient>
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
