@@ -118,10 +118,12 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                 {data.hero.description}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6">
                 <HoverBorderGradient 
                   as="a" 
-                  href="#contato" 
+                  href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Gostaria de agendar uma reunião técnica sobre " + data.hero.title)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 sm:px-10 py-4 sm:py-5 font-bold text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-display flex items-center justify-center sm:justify-start group w-full sm:w-auto"
                 >
                   {data.contact.buttonText || "Solicitar Consultoria"}
@@ -143,9 +145,11 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
           </p>
           <HoverBorderGradient 
             as="a" 
-            href="https://wa.me/5531999999999" 
+            href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Vim pela página de " + data.hero.title + " e gostaria de falar sobre as oportunidades na Geo-Conecta.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
             containerClassName="mx-auto"
-            className="px-12 py-6 font-bold text-[13px] uppercase tracking-[0.15em] font-instrumental-sans inline-flex items-center gap-3"
+            className="px-8 sm:px-12 py-5 sm:py-6 font-bold text-[12px] sm:text-[13px] uppercase tracking-[0.15em] font-instrumental-sans inline-flex items-center gap-3"
           >
             <WhatsAppIcon className="w-5 h-5" />
             Junte-se a Nós
@@ -171,7 +175,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             >
               <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-light mb-10 leading-[1.05] tracking-tight text-zinc-900">
                 {data.problem.title} <br />
-                <span className="italic text-zinc-400">{data.problem.titleHighlight}</span>
+                <span className="italic text-zinc-400" dangerouslySetInnerHTML={{ __html: data.problem.titleHighlight }} />
               </h2>
             </motion.div>
 
@@ -214,9 +218,9 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                    <p dangerouslySetInnerHTML={{ __html: data.problem.content[0] }} />
                  </div>
 
-                 {/* Bloco de Solução - Linha Vermelha */}
-                 <div className="border-l-4 border-red-600 pl-8 py-8 bg-zinc-50/50 rounded-r-3xl">
-                   <h3 className="text-2xl md:text-3xl font-display font-medium text-zinc-900 mb-4 italic">Nós eliminamos a sua incerteza.</h3>
+                 {/* Bloco de Solução - Linha Verde */}
+                 <div className="border-l-4 border-green-600 pl-8 py-8 bg-zinc-50/50 rounded-r-3xl">
+                   <h3 className="text-2xl md:text-3xl font-display font-medium text-zinc-900 mb-4 italic">Como resolvemos?</h3>
                    <p className="text-lg text-zinc-700 leading-relaxed font-light" dangerouslySetInnerHTML={{ __html: data.problem.content[1] }} />
                  </div>
 
@@ -299,8 +303,10 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             <div className="flex justify-center">
               <HoverBorderGradient 
                 as="a" 
-                href="https://wa.me/5531999999999" 
-                className="px-16 py-8 font-bold text-[15px] uppercase tracking-[0.25em] font-instrumental-sans inline-flex items-center gap-4 hover:scale-105 transition-transform duration-500"
+                href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Estou no site na página de " + data.hero.title + " e gostaria de falar com a diretoria técnica sobre um projeto específico.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 sm:px-16 py-5 sm:py-8 font-bold text-[13px] sm:text-[15px] uppercase tracking-[0.2em] sm:tracking-[0.25em] font-instrumental-sans inline-flex items-center gap-4 hover:scale-105 transition-transform duration-500"
               >
                 <WhatsAppIcon className="w-6 h-6" />
                 Falar com Especialista Técnico
@@ -324,11 +330,11 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-20"
+            className="mb-20 text-center mx-auto max-w-4xl"
           >
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-light text-white leading-tight">
-              Nosso time <br />
-              <span className="italic text-zinc-500">de Elite em Comando</span>
+              Equipe <br />
+              <span className="italic text-zinc-500">Geo-Conecta.</span>
             </h2>
           </motion.div>
           
@@ -343,8 +349,8 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-light leading-tight text-zinc-900">
-              Inicie sua <br />
-              <span className="italic text-zinc-400">{data.contact.subtitle}</span>
+              Entre em <br />
+              <span className="italic text-zinc-400">contato</span>
             </h2>
             <p className="text-xl text-zinc-500 mt-8 mb-16 leading-relaxed font-light">
               Estamos prontos para atender demandas de alta complexidade. Agende uma reunião com nossos especialistas.
@@ -360,7 +366,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1 font-display">E-mail Corporativo</div>
-                    <div className="text-lg font-medium">contato@conectageologia.com.br</div>
+                    <div className="text-[14px] sm:text-lg font-medium break-all sm:break-normal">contato@conectageologia.com.br</div>
                   </div>
                 </div>
                 

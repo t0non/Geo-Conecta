@@ -10,11 +10,11 @@ const geologiaData = {
     image: "https://files.catbox.moe/vjrdea.mp4",
     bgColor: "bg-zinc-900",
     gradientColor: "from-zinc-900/80 via-zinc-900/60 to-zinc-900",
-    accentColor: "text-blue-400"
+    accentColor: "text-orange-500"
   },
   problem: {
-    title: "Geologia imprecisa é um",
-    titleHighlight: "ralo de dinheiro.",
+    title: "Geologia sem precisão é",
+    titleHighlight: '<span class="text-red-500">desperdício</span> <span class="text-zinc-900">de capital.</span>',
     content: [
       "Decisões baseadas em <strong>mapeamentos superficiais</strong> e modelos 3D mal executados levam a <strong>investimentos de milhões</strong> em furos estéreis e lavra ineficiente. Sem inteligência geológica, você opera no escuro.",
       "A Geo-Conecta transforma dados brutos em ativos estratégicos. Nossa <strong>geologia aplicada</strong> entrega modelos estruturais e reservas auditáveis, garantindo lucratividade máxima."
@@ -26,7 +26,7 @@ const geologiaData = {
     ]
   },
   solutions: {
-    title: "Inteligência que Gera Valor",
+    title: "Nossas Soluções",
     subtitle: "Soluções Geológicas",
     cards: [
       {

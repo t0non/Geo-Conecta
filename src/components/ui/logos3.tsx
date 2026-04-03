@@ -22,7 +22,7 @@ const Logos3 = () => {
   const duplicatedLogos = [...logos, ...logos, ...logos];
 
   return (
-    <section className="py-16 md:py-20 bg-white border-y border-zinc-100 overflow-hidden">
+    <section className="py-16 md:py-20 bg-white overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20 text-center mb-12">
         <h2 className="text-2xl md:text-3xl font-semibold text-zinc-700 font-instrumental-sans">
           Empresas que <span className="font-bold text-zinc-900">confiam</span>

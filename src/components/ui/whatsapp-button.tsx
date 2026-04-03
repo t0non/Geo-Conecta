@@ -35,7 +35,7 @@ const WhatsAppButton = ({
       >
         <button
           onClick={handleClick}
-          className="relative w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full shadow-xl flex items-center justify-center transition-all duration-300 group border-2 border-white/20"
+          className="relative w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full shadow-xl flex items-center justify-center transition-all duration-300 group"
           aria-label="Contato via WhatsApp"
         >
           {/* WhatsApp Icon - Centered */}
@@ -72,7 +72,7 @@ const WhatsAppButton = ({
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={handleClick}
-        className={`w-full bg-[#25D366]/5 hover:bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] px-4 py-3 rounded-lg font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md ${className}`}
+        className={`w-full bg-[#25D366]/5 hover:bg-[#25D366]/10 text-[#25D366] px-4 py-3 rounded-lg font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md ${className}`}
       >
         {/* WhatsApp Icon - Centered */}
         <WhatsAppIcon className="flex-shrink-0 w-[18px] h-[18px]" />

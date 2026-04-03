@@ -47,7 +47,7 @@ export default function CampoEmAcao() {
               <div className="text-6xl md:text-8xl font-display font-light text-white mb-4 group-hover:scale-105 transition-transform duration-500">
                 Risco Zero
               </div>
-              <div className="h-px w-12 bg-red-600 mb-6 mx-auto group-hover:w-24 transition-all duration-500" />
+              <div className="h-px w-12 bg-green-500 mb-6 mx-auto group-hover:w-24 transition-all duration-500" />
               <div className="text-[10px] md:text-[12px] font-bold text-zinc-400 uppercase tracking-[0.4em]">DE SURPRESAS OPERACIONAIS</div>
             </motion.div>
 
@@ -62,7 +62,7 @@ export default function CampoEmAcao() {
               <div className="text-6xl md:text-8xl font-display font-light text-white mb-4 group-hover:scale-105 transition-transform duration-500">
                 Visão 360º
               </div>
-              <div className="h-px w-12 bg-red-600 mb-6 mx-auto group-hover:w-24 transition-all duration-500" />
+              <div className="h-px w-12 bg-green-500 mb-6 mx-auto group-hover:w-24 transition-all duration-500" />
               <div className="text-[10px] md:text-[12px] font-bold text-zinc-400 uppercase tracking-[0.4em]">MODELAGEM 3D DE ALTA FIDELIDADE</div>
             </motion.div>
           </div>

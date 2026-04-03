@@ -19,13 +19,17 @@ import { WhatsAppButton } from "../components/ui/whatsapp-button";
 
 import { RadialOrbitalTimelineDemo } from "../components/ui/radial-orbital-timeline-demo";
 
-// Novos Componentes de Conversão B2B
-import CasosSucesso from "../components/conversion/CasosSucesso";
-import FaqTecnico from "../components/conversion/FaqTecnico";
-import CampoEmAcao from "../components/conversion/CampoEmAcao";
-import { AnimatedTestimonials, Testimonial } from "../components/ui/animated-testimonials";
-
+import React, { Suspense, useMemo } from "react";
 import { testimonialsData, faqData, casesData } from "../data/homeData";
+
+// [PERFORMANCE] Lazy Loading: Carregamento sob demanda (Code Splitting).
+// Retarda o download, parseamento e execução de JS de componentes que estão "abaixo da dobra" (below the fold).
+// Impacto: Reduz drásticamente o TBT (Total Blocking Time) na renderização inicial e melhora o TTI (Time to Interactive).
+const CasosSucesso = React.lazy(() => import("../components/conversion/CasosSucesso"));
+const FaqTecnico = React.lazy(() => import("../components/conversion/FaqTecnico"));
+const CampoEmAcao = React.lazy(() => import("../components/conversion/CampoEmAcao"));
+// Extraindo de uma named export exigiria wrap, então aqui criamos um alias default on-the-fly para o React.lazy:
+const AnimatedTestimonials = React.lazy(() => import("../components/ui/animated-testimonials").then(module => ({ default: module.AnimatedTestimonials })));
 
 function AnimatedStat({ value, delay }: { value: string, delay: number }) {
   const ref = useRef(null);
@@ -67,25 +71,23 @@ function AnimatedStat({ value, delay }: { value: string, delay: number }) {
 
 export default function Home() {
   const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] }); // [PERFORMANCE] Limitar scroll observation
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]); 
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]); // [CLEAN CODE] Removidos transforms (ex: scale) não utilizados.
+
+  // [PERFORMANCE] Memoização de dados estáticos para evitar recriação de arrays/objetos complexos a cada renderização do componente Home.
+  // Impacto: Reduz acionamentos desnecessários do Garbage Collector e poupa CPU se o estado do componente pai sofrer mutação.
+  const coreFeatures = useMemo(() => [
+    { icon: <ShieldCheck className="w-5 h-5" />, title: "Segurança Jurídica", text: "Conformidade total com ANM, IBAMA e demais órgãos ambientais, blindando seu projeto contra riscos regulatórios." },
+    { icon: <Globe className="w-5 h-5" />, title: "Visão Global", text: "Relatórios e laudos segundo padrões internacionais (NI 43-101, JORC), atraindo investidores e parceiros globais." },
+    { icon: <Users className="w-5 h-5" />, title: "Corpo Técnico", text: "Equipe multidisciplinar com mestres e doutores em geociências, engenharia e ciências ambientais." },
+    { icon: <ArrowRight className="w-5 h-5" />, title: "Agilidade", text: "Metodologia ágil e monitoramento contínuo para cumprimento de prazos críticos e respostas rápidas a exigências." },
+  ], []);
 
   return (
     <div className="bg-white relative overflow-hidden">
       {/* Background Decorative Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <motion.div 
-          animate={{ 
-            x: [0, 100, 0], 
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-red-500/5 rounded-full blur-[120px]"
-        />
         <motion.div 
           animate={{ 
             x: [0, -50, 0], 
@@ -94,17 +96,11 @@ export default function Home() {
             rotate: [0, -45, 0]
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[20%] -right-[5%] w-[35%] h-[35%] bg-zinc-900/5 rounded-full blur-[100px]"
+          // [PERFORMANCE / CSS] 'will-change-transform' instrui o navegador a isolar este elemento em sua própria layer de GPU antes que a animação inicie.
+          // Impacto: Evita gargalos de renderização (Repaints/Reflows) no Main Thread ao delegar a opacidade e transforms diretamente para a placa gráfica.
+          className="absolute top-[20%] -right-[5%] w-[35%] h-[35%] bg-zinc-900/5 rounded-full blur-[100px] will-change-transform"
         />
-        <motion.div 
-          animate={{ 
-            x: [0, 30, 0], 
-            y: [0, -60, 0],
-            scale: [1, 1.3, 1]
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[10%] left-[20%] w-[30%] h-[30%] bg-red-600/5 rounded-full blur-[110px]"
-        />
+
       </div>
 
       {/* Hero Section */}
@@ -115,8 +111,10 @@ export default function Home() {
             muted 
             loop 
             playsInline 
-            preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none"
+            // [PERFORMANCE / LCP] Utilizar 'preload="none"' e 'poster'. O browser não precisará fazer download pesado do vídeo no carregamento primário bloqueando scripts.
+            preload="none"
+            poster="/imagens/background_placeholder.jpg" // Fallback imediato do LCP
+            className="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none will-change-transform"
           >
             <source src="https://files.catbox.moe/i4rfkh.mp4" type="video/mp4" />
           </video>
@@ -151,7 +149,9 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
                 <HoverBorderGradient 
                   as="a" 
-                  href="#servicos" 
+                  href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Vim pelo site da Geo-Conecta e gostaria de falar com um geólogo especialista.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 sm:px-10 py-4 sm:py-5 font-bold text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-display flex items-center justify-center sm:justify-start group w-full sm:w-auto"
                 >
                   Falar com um Geólogo Especialista
@@ -159,7 +159,7 @@ export default function Home() {
                 </HoverBorderGradient>
                 <HoverBorderGradient 
                   as="a" 
-                  href="#contato" 
+                  href="#servicos" 
                   className="px-6 sm:px-10 py-4 sm:py-5 font-bold text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-display flex items-center justify-center w-full sm:w-auto"
                 >
                   Nossos Serviços
@@ -173,7 +173,7 @@ export default function Home() {
       <Logos3 />
       
       {/* Stats Section */}
-      <section className="py-24 md:py-32 lg:py-40 bg-white border-b border-zinc-100">
+      <section className="py-24 md:py-32 lg:py-40 bg-white">
         <div className="max-w-[1440px] mx-auto w-full px-6 md:px-12 lg:px-16 xl:px-20">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 items-center">
             {stats.map((stat, i) => (
@@ -219,13 +219,13 @@ export default function Home() {
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <div className="relative order-2 lg:order-1">
+            <div className="relative order-1 lg:order-1">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl bg-zinc-100"
+                className="aspect-[4/5] min-h-[400px] sm:min-h-0 rounded-[2.5rem] overflow-hidden shadow-2xl bg-zinc-100"
               >
                 <video 
                   autoPlay 
@@ -240,7 +240,7 @@ export default function Home() {
               </motion.div>
             </div>
             
-            <div className="order-1 lg:order-2">
+            <div className="order-2 lg:order-2">
               <p className="text-xl text-zinc-600 mb-6 leading-relaxed font-light">
                 Fundada com a missão de unir ciência, tecnologia e gestão regulatória, a <strong className="font-semibold text-zinc-900">Geo-Conecta</strong> é uma consultoria geológica especializada que atua em todo o território nacional, conectando empresas e empreendedores às melhores soluções em mineração, meio ambiente e geotecnia.
               </p>
@@ -252,12 +252,7 @@ export default function Home() {
               </p>
               
               <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10">
-                {[
-                  { icon: <ShieldCheck className="w-5 h-5" />, title: "Segurança Jurídica", text: "Conformidade total com ANM, IBAMA e demais órgãos ambientais, blindando seu projeto contra riscos regulatórios." },
-                  { icon: <Globe className="w-5 h-5" />, title: "Visão Global", text: "Relatórios e laudos segundo padrões internacionais (NI 43-101, JORC), atraindo investidores e parceiros globais." },
-                  { icon: <Users className="w-5 h-5" />, title: "Corpo Técnico", text: "Equipe multidisciplinar com mestres e doutores em geociências, engenharia e ciências ambientais." },
-                  { icon: <ArrowRight className="w-5 h-5" />, title: "Agilidade", text: "Metodologia ágil e monitoramento contínuo para cumprimento de prazos críticos e respostas rápidas a exigências." },
-                ].map((item, i) => (
+                {coreFeatures.map((item, i) => (
                   <div key={i} className="space-y-3">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-xl bg-green-50 flex items-center justify-center text-green-600 flex-shrink-0">
@@ -270,7 +265,7 @@ export default function Home() {
                 ))}
               </div>
               
-              <div className="mt-14 pt-10 border-t border-zinc-100">
+              <div className="mt-14 pt-10">
                 <WhatsAppButton 
                   variant="inline" 
                   message="Olá! Gostaria de uma avaliação técnica gratuita do meu projeto pela Geo-Conecta."
@@ -284,7 +279,7 @@ export default function Home() {
       </section>
 
       {/* Services - Bento Grid */}
-      <section id="servicos" className="py-24 md:py-32 lg:py-40 bg-zinc-50 border-y border-zinc-100">
+      <section id="servicos" className="py-24 md:py-32 lg:py-40 bg-zinc-50">
         <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16 xl:px-20">
           <div className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-light mb-8 text-zinc-900">O que fazemos?</h2>
@@ -301,10 +296,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="bg-white rounded-[2.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-zinc-100 flex flex-col h-full group hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 overflow-hidden relative"
+                className="bg-white rounded-[2.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col h-full group hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-500 overflow-hidden relative"
               >
                 {/* Accent Color Line on Top */}
-                <div className="absolute top-0 left-0 w-0 h-1 bg-red-600 group-hover:w-full transition-all duration-700" />
+                <div className="absolute top-0 left-0 w-0 h-1 bg-green-500 group-hover:w-full transition-all duration-700" />
                 
                 {/* Image/Video Container */}
                 <div className="relative h-56 overflow-hidden">
@@ -370,10 +365,10 @@ export default function Home() {
             </p>
             <div className="flex justify-center">
               <a
-                href="https://wa.me/5531999999999"
+                href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Vim pelo site da Geo-Conecta e gostaria de solicitar uma consultoria personalizada.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-4 bg-[#25D366] hover:bg-[#128C7E] text-white px-16 py-6 rounded-2xl font-bold text-[14px] uppercase tracking-[0.25em] font-display shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:scale-105 transition-all duration-500"
+                className="inline-flex items-center gap-4 bg-[#25D366] hover:bg-[#128C7E] text-white px-10 sm:px-16 py-5 sm:py-6 rounded-2xl font-bold text-[13px] sm:text-[14px] uppercase tracking-[0.25em] font-display shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:scale-105 transition-all duration-500"
               >
                 <WhatsAppIcon className="w-6 h-6" />
                 Solicitar Consultoria Personalizada
@@ -383,29 +378,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Componente: Campo em Ação - Cinemático & Premium */}
-      <CampoEmAcao />
+      {/* [PERFORMANCE] Envolvendo os componentes pesados que não são críticos para visualização imediata em um Suspense Boundary. */}
+      {/* Isso faz com que seus bytes respectivos na rede não impeçam a formação do LCP da tela inicial. */}
+      <Suspense fallback={<div className="h-40 flex items-center justify-center opacity-30"><div className="animate-spin w-8 h-8 border-4 border-zinc-900 border-t-transparent rounded-full" /></div>}>
+        {/* Componente: Campo em Ação - Cinemático & Premium */}
+        <CampoEmAcao />
 
-      {/* Componente 3: Casos de Sucesso */}
-      <CasosSucesso cases={casesData} />
+        {/* Componente 3: Casos de Sucesso */}
+        <CasosSucesso cases={casesData} />
 
-      {/* Section: Testimonials */}
-      <section className="py-24 md:py-32 lg:py-40 bg-zinc-900 border-y border-zinc-800">
-        <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16 xl:px-20">
-          <div className="text-center mb-20 lg:mb-28">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-light text-white mb-6">
-              Nosso time de Elite em Comando
-            </h2>
-            <p className="text-xl text-zinc-400 font-light max-w-3xl mx-auto">
-              Sua demanda é liderada por especialistas com profundo trânsito regulatório e rigor técnico para blindar o seu investimento.
-            </p>
+        {/* Section: Testimonials */}
+        <section className="py-24 md:py-32 lg:py-40 bg-zinc-900 border-y border-zinc-800">
+          <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16 xl:px-20">
+            <div className="text-center mb-20 lg:mb-28">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-light text-white mb-6">
+                Equipe Geo-Conecta.
+              </h2>
+              <p className="text-xl text-zinc-400 font-light max-w-3xl mx-auto">
+                Sua demanda é liderada por especialistas com profundo trânsito regulatório e rigor técnico para blindar o seu investimento.
+              </p>
+            </div>
+            <AnimatedTestimonials testimonials={testimonialsData} />
           </div>
-          <AnimatedTestimonials testimonials={testimonialsData} />
-        </div>
-      </section>
+        </section>
 
-      {/* Componente 5: FAQ B2B */}
-      <FaqTecnico items={faqData} title="Perguntas Frequentes" />
+        {/* Componente 5: FAQ B2B */}
+        <FaqTecnico items={faqData} title="Perguntas Frequentes" />
+      </Suspense>
 
       {/* Contact Section - Premium Form */}
       <section id="contato" className="py-24 md:py-32 lg:py-40 bg-white">
@@ -429,7 +428,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1 font-display">E-mail Corporativo</div>
-                    <div className="text-lg font-medium">contato@conectageologia.com.br</div>
+                    <div className="text-[14px] sm:text-lg font-medium break-all sm:break-normal">contato@conectageologia.com.br</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-8 group cursor-pointer">
@@ -445,7 +444,7 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-7">
-              <div className="bg-zinc-50 p-6 lg:p-8 xl:p-12 rounded-[2rem] lg:rounded-[3rem] border border-zinc-100">
+              <div className="bg-zinc-50 p-6 lg:p-8 xl:p-12 rounded-[2rem] lg:rounded-[3rem] shadow-sm">
                 <form className="space-y-6 sm:space-y-8" onSubmit={(e) => e.preventDefault()}>
                   <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
                     <div className="space-y-3 sm:space-y-4">
@@ -471,8 +470,8 @@ export default function Home() {
                     <textarea rows={4} className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg resize-none" placeholder="Descreva brevemente sua demanda..."></textarea>
                   </div>
                   <HoverBorderGradient 
-                    containerClassName="w-full"
-                    className="w-full py-6 font-bold text-[12px] uppercase tracking-[0.3em] font-display"
+                    containerClassName="flex justify-center pt-4"
+                    className="w-full sm:w-auto sm:px-12 py-6 font-bold text-[12px] uppercase tracking-[0.3em] font-display"
                   >
                     Enviar Solicitação
                   </HoverBorderGradient>

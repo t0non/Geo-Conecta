@@ -19,7 +19,7 @@ export interface CasosSucessoProps {
 }
 
 export default function CasosSucesso({
-  title = "Resultados que Blindam e Aceleram seu Patrimônio.",
+  title = "Proteja seu solo. Acelere seu lucro.",
   subtitle = "Não entregamos apenas laudos, entregamos segurança jurídica e viabilidade econômica para o seu ativo mineral.",
   cases
 }: CasosSucessoProps) {
@@ -130,13 +130,13 @@ export default function CasosSucesso({
 
           <div className="relative z-10 flex-shrink-0">
             <a
-              href="https://wa.me/5531999999999"
+              href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Gostaria de solicitar uma auditoria para meu ativo mineral conforme vi nos Casos de Sucesso da Geo-Conecta.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-12 py-6 rounded-2xl font-bold text-[13px] uppercase tracking-[0.2em] font-display shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:scale-105 transition-all duration-500"
+              className="inline-flex items-center gap-4 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-bold text-[13px] uppercase tracking-[0.2em] font-display shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:scale-105 transition-all duration-500"
             >
-              <WhatsAppIcon className="w-5 h-5" />
-              Solicitar Proposta Similar Agora
+              <WhatsAppIcon className="w-7 h-7 sm:w-5 sm:h-5" />
+              Solicitar Auditoria Agora
             </a>
           </div>
         </motion.div>

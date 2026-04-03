@@ -48,7 +48,7 @@ const EscopoTecnico: React.FC<EscopoTecnicoProps> = ({
               <HoverBorderGradient
                 as="div"
                 containerClassName="w-full h-full rounded-[2.5rem]"
-                className="w-full h-full min-h-[130px] md:min-h-[150px] bg-zinc-50 p-8 md:p-10 flex items-center gap-6 transition-all duration-500 group-hover:bg-white border border-zinc-100/50"
+                className="w-full h-full min-h-[130px] md:min-h-[150px] bg-zinc-50 p-8 md:p-10 flex items-center gap-6 transition-all duration-500 group-hover:bg-white"
                 duration={3}
               >
                 <div className="flex-shrink-0 bg-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-zinc-900 group-hover:text-white group-hover:shadow-xl transition-all duration-500">

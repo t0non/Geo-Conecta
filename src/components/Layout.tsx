@@ -39,7 +39,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const navLinks = [
     { label: "A Consultoria", href: isHome ? "#sobre" : "/#sobre" },
-    { label: "Soluções Técnicas", href: isHome ? "#servicos" : "/#servicos" },
+    { label: "Nossos Serviços", href: isHome ? "#servicos" : "/#servicos" },
   ];
 
   return (
@@ -52,14 +52,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               ? "bg-zinc-900/90 border-white/10 ring-white/5" 
               : "bg-white/40 border-white/40 ring-white/30"
           }`}>
-            <div className="flex-shrink-0 flex items-center gap-6">
+            {/* Mobile Left Spacer - Para centralização perfeita */}
+            <div className="flex-1 lg:hidden" />
+
+            <div className="flex-1 flex lg:flex-initial lg:items-center justify-center lg:justify-start lg:gap-6">
               <Link to="/" className="flex items-center gap-4 group">
                 <img 
                   src={LOGO_URL} 
                   alt="Geo-Conecta" 
                   loading="eager" 
                   decoding="async" 
-                  className="h-12 lg:h-16 w-auto brightness-0 invert transition-all duration-300 group-hover:scale-105" 
+                  className="h-16 lg:h-16 w-auto brightness-0 invert transition-all duration-300 group-hover:scale-105" 
                   referrerPolicy="no-referrer" 
                 />
                 <div className="hidden xl:flex flex-col border-l border-white/20 pl-6 py-2 leading-[1.2]">
@@ -88,7 +91,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="hidden xl:flex items-center gap-4 group">
                 <div className="flex flex-col items-end mr-1 leading-none">
                   <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Atendimento Direto</span>
-                  <span className="text-[11px] font-medium text-white tracking-widest">+55 31 99999-9999</span>
+                  <span className="text-[11px] font-medium text-white tracking-widest">+55 31 93408-9088</span>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center border border-white/10 group-hover:bg-zinc-700 transition-colors">
                   <Phone className="w-3.5 h-3.5 text-white" />
@@ -105,7 +108,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden">
+            <div className="lg:hidden flex-1 flex justify-end">
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-white">
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -192,11 +195,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-6 text-zinc-500 text-sm font-light">
                 <li className="flex items-start gap-4">
                   <Mail className="w-5 h-5 text-zinc-600 mt-0.5" />
-                  <span>contato@conectageologia.com.br</span>
+                  <span className="break-all sm:break-normal text-[13px] sm:text-sm">contato@conectageologia.com.br</span>
                 </li>
                 <li className="flex items-start gap-4">
                   <Phone className="w-5 h-5 text-zinc-600 mt-0.5" />
-                  <span>+55 (31) 99999-9999</span>
+                  <span>+55 (31) 93408-9088</span>
                 </li>
                 <li className="flex items-start gap-4 text-zinc-600">
                   <MapPin className="w-5 h-5 text-zinc-600 mt-0.5" />
@@ -209,9 +212,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="text-[11px] font-bold uppercase tracking-[0.3em] text-zinc-400 mb-8 font-display">Conecte-se</h4>
               <div className="flex gap-6 mb-10">
-                {["LinkedIn", "Instagram", "YouTube"].map((social) => (
-                  <a key={social} href="#" className="text-zinc-600 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">{social}</a>
-                ))}
+                <a 
+                  href="https://www.instagram.com/conectaambiental/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-zinc-600 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest"
+                >
+                  Instagram
+                </a>
               </div>
               <ul className="space-y-4 text-zinc-500 text-sm font-light">
                 <li><a href={isHome ? "#sobre" : "/#sobre"} className="hover:text-white transition-colors">Quem Somos</a></li>

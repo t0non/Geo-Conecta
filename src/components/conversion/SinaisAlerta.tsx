@@ -17,15 +17,7 @@ const SinaisAlerta: React.FC<SinaisAlertaProps> = ({
     <section className="py-24 md:py-32 lg:py-40 bg-zinc-50/50">
       <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16 xl:px-20">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-[10px] md:text-[11px] font-bold text-red-500 uppercase tracking-[0.4em] mb-6 block font-display"
-          >
-            Atenção Estratégica
-          </motion.span>
+
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +32,7 @@ const SinaisAlerta: React.FC<SinaisAlertaProps> = ({
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="h-px w-24 bg-red-200 mx-auto"
+            className="h-px w-24 bg-green-200 mx-auto"
           />
         </div>
 
@@ -77,7 +69,7 @@ const SinaisAlerta: React.FC<SinaisAlertaProps> = ({
                 ease: [0.22, 1, 0.36, 1]
               }}
               viewport={{ once: true, margin: "-100px" }}
-              className="bg-white p-6 md:p-8 rounded-[2rem] border border-zinc-100 transition-all duration-500 group relative overflow-hidden flex flex-col md:flex-row items-center gap-6 md:gap-10"
+              className="bg-white p-6 md:p-8 rounded-[2rem] transition-all duration-500 group relative overflow-hidden flex flex-col md:flex-row items-center gap-6 md:gap-10"
             >
               <motion.div
                 variants={{

@@ -10,11 +10,11 @@ const estudosData = {
     image: "/imagens/MeioFisico.mp4",
     bgColor: "bg-zinc-900",
     gradientColor: "from-zinc-900/80 via-zinc-900/60 to-zinc-900",
-    accentColor: "text-red-500"
+    accentColor: "text-green-500"
   },
   problem: {
     title: "O que você não vê sob o terreno",
-    titleHighlight: "pode custar o seu lucro.",
+    titleHighlight: '<span class="text-zinc-900">pode</span> <span class="text-red-500">custar</span> <span class="text-zinc-900">o seu</span> <span class="text-green-500">lucro.</span>',
     content: [
       "<strong>Trincas, recalques e infiltrações</strong> não são apenas falhas estéticas. São sinais de um diagnóstico negligenciado que pode <strong>encarecer sua obra em até 40%</strong> ou levar ao <strong>embargo total</strong> por riscos estruturais.",
       "Na Geo-Conecta, eliminamos a incerteza. Entregamos uma investigação com precisão cirúrgica para garantir que cada centavo do seu investimento vá para uma base sólida e inquestionável."
