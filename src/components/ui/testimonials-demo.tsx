@@ -8,7 +8,7 @@ import { TestimonialSection } from "@/components/ui/testimonials"; // Adjust the
        "Nosso mapeamento geológico não é apenas descritivo, é desenhado para anular riscos operacionais e garantir a conformidade ambiental irrefutável.", 
      name: "Joyce Ávila Nascimento", 
      role: "Engenheira Geóloga | CREA - MG 247354/D", 
-     imageSrc: "/imagens/Joyce.png", 
+     imageSrc: "/imagens/Joyce.webp", 
    }, 
    { 
      id: 2, 
@@ -16,7 +16,7 @@ import { TestimonialSection } from "@/components/ui/testimonials"; // Adjust the
        "Transformamos dados brutos de campo em inteligência de negócios. Nossa execução cirúrgica minimiza custos de exploração e acelera aprovações regulatórias.", 
      name: "Alysson Cley De Souza Ferreira", 
      role: "Engenheiro Geólogo | CREA - MG 71811/D", 
-     imageSrc: "/imagens/Alyson.png", 
+     imageSrc: "/imagens/Alyson.webp", 
    }, 
    { 
      id: 3, 
@@ -24,7 +24,7 @@ import { TestimonialSection } from "@/components/ui/testimonials"; // Adjust the
        "A precisão técnica é o nosso alicerce. Garantimos que cada projeto esteja em total conformidade com as normas vigentes, trazendo segurança jurídica e técnica.", 
      name: "Deisimara Ramos", 
      role: "Geóloga | CREA - MG 422462/D", 
-     imageSrc: "/imagens/Deisimara.png", 
+     imageSrc: "/imagens/Deisimara.webp", 
    }, 
    { 
      id: 4, 
@@ -32,7 +32,7 @@ import { TestimonialSection } from "@/components/ui/testimonials"; // Adjust the
        "Sustentabilidade e segurança caminham juntas. Nossa abordagem integrada garante projetos eficientes, seguros e ambientalmente responsáveis.", 
      name: "Tâmia Neves", 
      role: "Eng. Sanitarista, Ambiental e de Segurança do Trabalho | CREA - MG 168001/D", 
-     imageSrc: "/imagens/Tamia.png", 
+     imageSrc: "/imagens/Tamia.webp", 
    }, 
  ]; 
   

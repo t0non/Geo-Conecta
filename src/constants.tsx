@@ -18,7 +18,7 @@ export const services: Service[] = [
     icon: <GeoIcon />,
     details: ["Mapeamento Estrutural", "Modelagem 3D de Jazidas", "Campanhas de Sondagem", "Avaliação de Reservas"],
     fullDescription: "A Geologia Aplicada é o alicerce de qualquer projeto de engenharia ou mineração bem-sucedido. Utilizamos as tecnologias mais avançadas de mapeamento e sondagem para fornecer dados precisos sobre o subsolo, permitindo uma tomada de decisão estratégica e segura para o seu empreendimento.",
-    image: "https://files.catbox.moe/vjrdea.mp4"
+    image: "/imagens/GeologiaAplicada2.mp4"
   },
   {
     id: "meio-ambiente-licenciamento",
@@ -65,4 +65,4 @@ export const stats: Stat[] = [
   { label: "Responsabilidade Técnica", value: "100%" },
 ];
 
-export const LOGO_URL = "https://files.catbox.moe/pzn2sd.png";
+export const LOGO_URL = "/imagens/logo_main.webp";

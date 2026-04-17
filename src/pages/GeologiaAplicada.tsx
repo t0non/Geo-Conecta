@@ -7,7 +7,7 @@ const geologiaData = {
     title: "Geologia Estratégica para",
     titleHighlight: "Ativos de Valor",
     description: "Transformamos incerteza geológica em lucro operacional. Nossa inteligência estrutural e modelagem 3D garantem que você perfure no lugar certo e extraia o máximo valor do seu ativo mineral.",
-    image: "https://files.catbox.moe/vjrdea.mp4",
+    image: "/imagens/GeologiaAplicada2.mp4",
     bgColor: "bg-zinc-900",
     gradientColor: "from-zinc-900/80 via-zinc-900/60 to-zinc-900",
     accentColor: "text-orange-500"

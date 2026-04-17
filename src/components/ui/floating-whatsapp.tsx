@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -8,12 +8,12 @@ import { WhatsAppIcon } from './whatsapp-icon';
 
 // Configuração do Widget
 const WIDGET_CONFIG = {
-  buttonAvatar: '/imagens/Atendente.png',
-  agentAvatar: '/imagens/Atendente.png',
+  buttonAvatar: '/imagens/Atendente.webp',
+  agentAvatar: '/imagens/Atendente.webp',
   agentName: 'Lívia',
-  notificationAvatar: '/imagens/Atendente.png',
+  notificationAvatar: '/imagens/Atendente.webp',
   notificationName: 'Lívia',
-  whatsappNumber: '553193408908',
+  whatsappNumber: '553173516826',
   initialMessage: 'Olá! Gostaria de falar com um especialista da Geo-Conecta.',
   messages: [
     { text: 'Olá! Tudo bem?', delay: 8000 },
@@ -22,7 +22,7 @@ const WIDGET_CONFIG = {
 };
 
 // Fallback image if Eduardo.webp is missing (Using Alyson as template)
-const DEFAULT_AVATAR = '/imagens/Alyson.png';
+const DEFAULT_AVATAR = '/imagens/Alyson.webp';
 const IPHONE_SOUND_URL = '/imagens/notificação iphone.mp3';
 
 export default function FloatingWhatsappButton() {
@@ -91,7 +91,7 @@ export default function FloatingWhatsappButton() {
 
   const whatsappUrl = `https://wa.me/${WIDGET_CONFIG.whatsappNumber}?text=${encodeURIComponent(WIDGET_CONFIG.initialMessage)}`;
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageError = (e: any) => {
     e.currentTarget.src = DEFAULT_AVATAR;
   };
 
@@ -136,11 +136,11 @@ export default function FloatingWhatsappButton() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                className="w-[400px] bg-white rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.15)] overflow-hidden mb-4"
+                className="w-[280px] sm:w-[350px] bg-white rounded-[2rem] shadow-[0_30px_100px_rgba(0,0,0,0.15)] overflow-hidden mb-4"
               >
-                <div className="bg-[#0f172a] p-6 flex items-center justify-between text-white">
-                  <div className="flex items-center gap-4">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#0f172a] border-none ring-0">
+                <div className="bg-[#0f172a] p-5 sm:p-6 flex items-center justify-between text-white">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-[#0f172a] border-none ring-0">
                       <img 
                         src={WIDGET_CONFIG.agentAvatar} 
                         alt={WIDGET_CONFIG.agentName} 
@@ -149,39 +149,39 @@ export default function FloatingWhatsappButton() {
                       />
                     </div>
                     <div>
-                      <div className="font-bold text-[16px] leading-tight">{WIDGET_CONFIG.agentName}</div>
-                      <div className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Consultora Geo-Conecta</div>
+                      <div className="font-bold text-[15px] sm:text-[16px] leading-tight">{WIDGET_CONFIG.agentName}</div>
+                      <div className="text-[10px] text-zinc-400 font-medium tracking-wide uppercase">Consultora Geo-Conecta</div>
                     </div>
                   </div>
-                  <X className="cursor-pointer text-zinc-400 hover:text-white transition-colors" onClick={() => setIsOpen(false)} />
                 </div>
                 
-                <div className="p-6 h-[320px] bg-[#f8fafc] overflow-y-auto space-y-4 flex flex-col relative">
+                <div className="p-5 sm:p-6 h-[220px] sm:h-[300px] bg-[#efeae2] overflow-y-auto space-y-3 sm:space-y-4 flex flex-col relative">
                   {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 0.5px, transparent 0.5px)', backgroundSize: '10px 10px' }} />
                   
-                  <div className="relative z-10 self-start max-w-[80%] bg-[#E9E9EB] p-3 rounded-[18px] rounded-tl-[4px] shadow-none">
-                    <p className="text-[13px] text-zinc-800 leading-relaxed font-medium">
+                  <div className="relative z-10 self-start max-w-[85%] bg-white p-3 rounded-[18px] rounded-tl-[4px] shadow-[0_1px_1px_rgba(0,0,0,0.1)]">
+                    <p className="text-[12px] sm:text-[13px] text-zinc-800 leading-relaxed font-medium">
                       Olá! Sou a {WIDGET_CONFIG.agentName}. 👋
                     </p>
                   </div>
                   
-                  <div className="relative z-10 self-start max-w-[80%] bg-[#E9E9EB] p-3 rounded-[18px] rounded-tl-[4px] shadow-none">
-                    <p className="text-[13px] text-zinc-800 leading-relaxed">
+                  <div className="relative z-10 self-start max-w-[85%] bg-white p-3 rounded-[18px] rounded-tl-[4px] shadow-[0_1px_1px_rgba(0,0,0,0.1)]">
+                    <p className="text-[12px] sm:text-[13px] text-zinc-800 leading-relaxed">
                       Como posso ajudar seu projeto hoje?
                     </p>
                   </div>
                 </div>
                 
-                <div className="p-6 bg-white">
+                <div className="p-5 sm:p-6 bg-white">
                   <a 
                     href={whatsappUrl} 
                     target="_blank" 
-                    rel="noopener noreferrer"
-                    className="group flex w-full bg-[#25D366] hover:bg-[#128C7E] text-white text-center py-5 rounded-[1.2rem] font-bold text-[14px] tracking-wide transition-all duration-300 active:scale-[0.98] items-center justify-center gap-2"
+                    className="group w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-4 sm:py-5 rounded-[1.2rem] transition-all duration-300 shadow-sm active:scale-[0.98] block"
                   >
-                    <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                    Iniciar Conversa no WhatsApp
+                    <div className="flex items-center justify-center gap-2 w-full">
+                      <WhatsAppIcon className="w-5 h-5 group-hover:scale-110 transition-transform fill-white flex-shrink-0" />
+                      <span className="font-bold text-[13px] sm:text-[14px] tracking-wide text-center">Iniciar Conversa</span>
+                    </div>
                   </a>
                 </div>
               </motion.div>
@@ -192,7 +192,7 @@ export default function FloatingWhatsappButton() {
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`h-14 w-14 sm:h-20 sm:w-20 rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 p-0 overflow-visible border-none ring-0 ${isOpen ? 'bg-zinc-800 rotate-90 shadow-zinc-800/30' : 'bg-transparent'}`}
+          className={`h-12 w-12 sm:h-16 sm:w-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 p-0 overflow-visible border-none ring-0 ${isOpen ? 'bg-zinc-800 rotate-90 shadow-zinc-800/30' : 'bg-transparent'}`}
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -210,9 +210,12 @@ export default function FloatingWhatsappButton() {
                   />
                 </div>
                 
-                {/* Status Dot "Pra Fora" (Brighter "Electric" Green) */}
-                <div className="absolute -bottom-0.5 -right-0.5 w-4.5 h-4.5 bg-gradient-to-br from-[#4ADE80] to-[#22C55E] rounded-full shadow-[0_0_10px_rgba(34,197,94,0.4)] z-20 animate-pulse border-none ring-0 overflow-hidden">
-                  <div className="absolute inset-0 bg-white/40 rounded-full blur-[1px] translate-x-[-25%] translate-y-[-25%] w-1/2 h-1/2" />
+                {/* Status Dot "Pra Fora" (Stable central dot + Pulsing ring) */}
+                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 flex items-center justify-center z-20">
+                  {/* Pulsing ring behind (more subtle) */}
+                  <div className="absolute w-full h-full bg-[#22C55E] rounded-full animate-ping opacity-25" />
+                  {/* Static central dot (no border) */}
+                  <div className="relative w-3 h-3 bg-gradient-to-br from-[#4ADE80] to-[#22C55E] rounded-full shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
                 </div>
               </motion.div>
             )}

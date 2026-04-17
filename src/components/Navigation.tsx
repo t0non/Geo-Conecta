@@ -28,7 +28,7 @@ export function Navigation() {
     { href: "/dashboard", label: "CONTATO" },
   ];
 
-  const logoUrl = "https://files.catbox.moe/73bf5a.png";
+  const logoUrl = "/imagens/logo_nav.webp";
 
   return (
     <div className="fixed top-0 z-50 w-full px-4 md:px-8 pt-6">

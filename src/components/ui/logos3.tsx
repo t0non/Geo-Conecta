@@ -9,13 +9,13 @@ import { motion } from "framer-motion";
  */
 const Logos3 = () => {
   const logos = [
-    { name: "Agrominas", src: "/imagens/AGROMINAS.png" },
-    { name: "Bioma", src: "/imagens/BIOMA.png" },
-    { name: "Brandt", src: "/imagens/BRANDT.png" },
-    { name: "Captura", src: "/imagens/CAPTURA.png" },
-    { name: "Jazida", src: "/imagens/JAZIDA.png" },
-    { name: "Sada", src: "/imagens/SADA.png" },
-    { name: "Samenco", src: "/imagens/SAMENCO.png" },
+    { name: "Agrominas", src: "/imagens/AGROMINAS.webp" },
+    { name: "Bioma", src: "/imagens/BIOMA.webp" },
+    { name: "Brandt", src: "/imagens/BRANDT.webp" },
+    { name: "Captura", src: "/imagens/CAPTURA.webp" },
+    { name: "Jazida", src: "/imagens/JAZIDA.webp" },
+    { name: "Sada", src: "/imagens/SADA.webp" },
+    { name: "Samenco", src: "/imagens/SAMENCO.webp" },
   ];
 
   // Duplicating for infinite effect

@@ -5,25 +5,25 @@ export const testimonialsData: Testimonial[] = [
     name: "Joyce Ávila Nascimento",
     designation: "Engenheira Geóloga | CREA - MG 247354/D",
     quote: "Mapeamento de precisão para anular riscos operacionais e blindar sua conformidade ambiental.",
-    src: "/imagens/Joyce.png"
+    src: "/imagens/Joyce.webp"
   },
   {
     name: "Alysson Cley De Souza Ferreira",
     designation: "Engenheiro Geólogo | CREA - MG 71811/D",
     quote: "Dados transformados em inteligência para reduzir custos e acelerar prazos junto à ANM.",
-    src: "/imagens/Alyson.png"
+    src: "/imagens/Alyson.webp"
   },
   {
     name: "Deisimara Ramos",
     designation: "Geóloga | CREA - MG 422462/D",
     quote: "Cuidado técnico minucioso para assegurar conformidade total e proteção jurídica ao projeto.",
-    src: "/imagens/Deisimara.png"
+    src: "/imagens/Deisimara.webp"
   },
   {
     name: "Tâmia Neves",
     designation: "Eng. Sanitarista, Ambiental e de Segurança do Trabalho | CREA - MG 168001/D",
     quote: "Abordagem integrada para garantir operações licenciadas, seguras e sustentáveis.",
-    src: "/imagens/Tamia.png"
+    src: "/imagens/Tamia.webp"
   }
 ];
 

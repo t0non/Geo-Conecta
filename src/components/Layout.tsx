@@ -91,7 +91,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="hidden xl:flex items-center gap-4 group">
                 <div className="flex flex-col items-end mr-1 leading-none">
                   <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Atendimento Direto</span>
-                  <span className="text-[11px] font-medium text-white tracking-widest">+55 31 93408-9088</span>
+                  <span className="text-[11px] font-medium text-white tracking-widest">+55 31 7351-6826</span>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center border border-white/10 group-hover:bg-zinc-700 transition-colors">
                   <Phone className="w-3.5 h-3.5 text-white" />
@@ -199,7 +199,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </li>
                 <li className="flex items-start gap-4">
                   <Phone className="w-5 h-5 text-zinc-600 mt-0.5" />
-                  <span>+55 (31) 93408-9088</span>
+                  <span>+55 (31) 7351-6826</span>
                 </li>
                 <li className="flex items-start gap-4 text-zinc-600">
                   <MapPin className="w-5 h-5 text-zinc-600 mt-0.5" />

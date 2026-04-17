@@ -5,6 +5,7 @@ import { services, LOGO_URL } from "../constants";
 import { HoverBorderGradient } from "../components/ui/hover-border-gradient";
 import { useEffect } from "react";
 import { Logos3 } from "../components/ui/logos3";
+import SEO from "../components/SEO";
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -27,6 +28,10 @@ export default function ServiceDetail() {
 
   return (
     <div className="pt-32 pb-24">
+      <SEO 
+        title={`${service.title} | Geo-Conecta`}
+        description={service.fullDescription.slice(0, 160) + "..."}
+      />
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 transition-colors mb-12 group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

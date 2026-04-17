@@ -11,6 +11,9 @@ import SinaisAlerta from "./conversion/SinaisAlerta";
 import { AnimatedTestimonials } from "./ui/animated-testimonials";
 import { testimonialsData, faqData } from "../data/homeData";
 import FaqTecnico from "./conversion/FaqTecnico";
+import SEO from "./SEO";
+import { useLocation } from "react-router-dom";
+import { salvarLead } from "../lib/supabase";
 
 interface ServiceData {
   hero: {
@@ -87,11 +90,42 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
     }
 
     const messageContent = `Olá! Vim pela página de ${data.hero.title}.\n\nNome: ${formData.name}\nAssunto: ${formData.subject}\n\n${formData.message}\n\nEmail: ${formData.email}`;
-    window.open(`https://wa.me/553193408908?text=${encodeURIComponent(messageContent)}`, "_blank");
+
+    // Salvar lead no Supabase (silencioso, não bloqueia o fluxo)
+    salvarLead({
+      nome: formData.name,
+      email: formData.email,
+      area_interesse: formData.subject,
+      mensagem: formData.message,
+      pagina_origem: data.hero.badge
+    });
+
+    window.open(`https://wa.me/553173516826?text=${encodeURIComponent(messageContent)}`, "_blank");
     setFormData({ name: "", email: "", subject: data.contact.options[0] || "", message: "" });
   };
+  const location = useLocation();
+  const currentUrl = `https://geo-conecta.com.br${location.pathname}`;
+
   return (
     <div className="bg-white">
+      <SEO 
+        title={`${data.hero.badge} | Geo-Conecta`}
+        description={data.hero.description}
+        canonical={currentUrl}
+        schemaJson={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": data.hero.badge,
+          "provider": {
+            "@type": "Organization",
+            "name": "Geo-Conecta",
+            "url": "https://geo-conecta.com.br"
+          },
+          "description": data.hero.description,
+          "areaServed": "BR",
+          "serviceType": data.hero.badge
+        }}
+      />
       {/* Section 1: Hero - Following Home Style */}
       <section className="relative h-[100dvh] min-h-[600px] flex items-center overflow-hidden bg-zinc-900">
         <div className="absolute inset-0 z-0">
@@ -146,7 +180,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6">
                 <HoverBorderGradient 
                   as="a" 
-                  href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Gostaria de agendar uma reunião técnica sobre " + data.hero.title)}`}
+                  href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Gostaria de agendar uma reunião técnica sobre " + data.hero.title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 sm:px-10 py-4 sm:py-5 font-bold text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-display flex items-center justify-center sm:justify-start group w-full sm:w-auto"
@@ -170,7 +204,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
           </p>
           <HoverBorderGradient 
             as="a" 
-            href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Vim pela página de " + data.hero.title + " e gostaria de falar sobre as oportunidades na Geo-Conecta.")}`}
+            href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Vim pela página de " + data.hero.title + " e gostaria de falar sobre as oportunidades na Geo-Conecta.")}`}
             target="_blank"
             rel="noopener noreferrer"
             containerClassName="mx-auto"
@@ -218,7 +252,8 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                   muted 
                   loop 
                   playsInline 
-                  preload="metadata"
+                  preload="none"
+                  title={`Vídeo demonstrativo de ${data.hero.title}`}
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
                 >
                   <source src={data.authority.image} type="video/mp4" />
@@ -226,9 +261,8 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
               ) : (
                 <img 
                   src={data.authority.image} 
-                  alt="Operação em campo" 
+                  alt={`Imagem ilustrativa de ${data.hero.title} ${data.hero.titleHighlight || ''}`}
                   loading="lazy"
-                  decoding="async"
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
@@ -302,7 +336,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                 <div className="mt-auto">
                   <HoverBorderGradient 
                     as="a" 
-                    href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Estou interessado no seviço de " + card.title + " da Geo-Conecta.")}`}
+                    href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Estou interessado no seviço de " + card.title + " da Geo-Conecta.")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-bold uppercase tracking-[0.2em] flex items-center justify-center whitespace-nowrap group/btn font-instrumental-sans"
@@ -320,17 +354,17 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20 text-center">
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-instrumental-sans font-light mb-8 leading-tight text-zinc-900">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-instrumental-sans font-light mb-8 leading-tight text-zinc-900">
               Precisa de algo <br />
               <span className="italic text-zinc-400">ainda mais específico?</span>
-            </h3>
+            </h2>
             <p className="text-xl text-zinc-800 mb-12 font-montserrat-light max-w-2xl mx-auto">
               Se as soluções acima não cobrem a totalidade do seu desafio, fale diretamente com nossa diretoria técnica para um atendimento consultivo de alta complexidade.
             </p>
             <div className="flex justify-center">
               <HoverBorderGradient 
                 as="a" 
-                href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Estou no site na página de " + data.hero.title + " e gostaria de falar com a diretoria técnica sobre um projeto específico.")}`}
+                href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Estou no site na página de " + data.hero.title + " e gostaria de falar com a diretoria técnica sobre um projeto específico.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 sm:px-16 py-5 sm:py-8 font-bold text-[13px] sm:text-[15px] uppercase tracking-[0.2em] sm:tracking-[0.25em] font-instrumental-sans inline-flex items-center gap-4 hover:scale-105 transition-transform duration-500"
@@ -403,7 +437,7 @@ export default function ServiceTemplate({ data }: ServiceTemplateProps) {
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1 font-display">WhatsApp Especialista</div>
-                    <div className="text-lg font-medium">+55 (31) 93408-9088</div>
+                    <div className="text-lg font-medium">+55 (31) 7351-6826</div>
                   </div>
                 </div>
 

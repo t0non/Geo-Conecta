@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>Geo-Conecta | Consultoria Mineral, Geologia e Meio Ambiente</title>
     <meta name="description" content="A Geo-Conecta é uma consultoria mineral premium especializada em processos na ANM, Geologia Aplicada e Licenciamento Ambiental. Unimos rigor técnico e agilidade para blindar seu patrimônio mineral." />
-    <meta name="keywords" content="consultoria mineral, ANM, geologia, licenciamento ambiental, mineração, geotecnia, hidrogeologia, mapeamento geológico, avaliação de reservas" />
+    <meta name="keywords" content="consultoria mineral, ANM, geologia, licenciamento ambiental, mineração, geotecnia, hidrogeologia, mapeamento geológico, avaliação de reservas, Geo-Conecta" />
     <meta name="author" content="Geo-Conecta" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://geo-conecta.com.br" />
     <meta name="theme-color" content="#0a0a0a" />
-    <link rel="icon" href="/imagens/iconegeo.png" />
+    <link rel="icon" href="/imagens/iconegeo.webp" />
+    <link rel="apple-touch-icon" href="/imagens/iconegeo.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/imagens/logo_nav.webp" />
+    <link rel="preload" as="image" href="/imagens/background_hero.webp" fetchpriority="high" />
     
-    <!-- Open Graph / Meta Tags para Compartilhamento Social (WhatsApp, LinkedIn, etc) -->
+    <!-- Open Graph / Meta Tags para Compartilhamento Social -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Geo-Conecta | Consultoria Mineral Premium e Geologia" />
-    <meta property="og:description" content="Dominamos cada etapa do processo na Mineração e Geologia. Segurança jurídica e excelência técnica (ANM, Geologia e Meio Ambiente)." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1578328819058-b69f3a709475?auto=format&fit=crop&q=80&w=1000" />
+    <meta property="og:description" content="Dominamos cada etapa do processo na Mineração e Geologia. Segurança jurídica e excelência técnica." />
+    <meta property="og:image" content="https://geo-conecta.com.br/imagens/og-image.jpg" />
     <meta property="og:url" content="https://geo-conecta.com.br" />
     <meta property="og:site_name" content="Geo-Conecta" />
     
@@ -26,16 +29,95 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Geo-Conecta | Consultoria Premium" />
     <meta name="twitter:description" content="Engenharia que transforma o solo. Dominamos cada etapa do processo na Mineração e Geologia." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1578328819058-b69f3a709475?auto=format&fit=crop&q=80&w=1000" />
+    <meta name="twitter:image" content="https://geo-conecta.com.br/imagens/og-image.jpg" />
+    
+    <!-- JSON-LD Structured Data - LocalBusiness, Organization & Services -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Geo-Conecta",
-        "url": "https://geo-conecta.com.br",
-        "logo": "https://geo-conecta.com.br/imagens/iconegeo.png",
-        "sameAs": []
-      }
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Geo-Conecta",
+          "image": "https://geo-conecta.com.br/imagens/iconegeo.webp",
+          "@id": "https://geo-conecta.com.br",
+          "url": "https://geo-conecta.com.br",
+          "telephone": "+553193408908",
+          "email": "contato@conectageologia.com.br",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Atendimento Nacional",
+            "addressLocality": "Belo Horizonte",
+            "addressRegion": "MG",
+            "postalCode": "30000-000",
+            "addressCountry": "BR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -19.9167,
+            "longitude": -43.9345
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          },
+          "description": "Consultoria mineral premium especializada em processos na ANM, Geologia Aplicada e Licenciamento Ambiental.",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Catálogo de Serviços Geológicos",
+            "itemListElement": [
+              {
+                "@type": "Service",
+                "name": "Mineração & ANM",
+                "description": "Gestão estratégica de processos minerários e conformidade regulatória."
+              },
+              {
+                "@type": "Service",
+                "name": "Geologia Aplicada",
+                "description": "Mapeamento de precisão e modelagem 3D de jazidas."
+              },
+              {
+                "@type": "Service",
+                "name": "Meio Ambiente e Licenciamento",
+                "description": "Estudos de impacto ambiental e processos de licenciamento complexos."
+              },
+              {
+                "@type": "Service",
+                "name": "Hidrogeologia",
+                "description": "Gestão sustentável de recursos hídricos e estudos de aquíferos."
+              },
+              {
+                "@type": "Service",
+                "name": "Geotecnia",
+                "description": "Engenharia de estabilidade de taludes e barragens."
+              }
+            ]
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Quais serviços a Geo-Conecta oferece?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Oferecemos consultoria completa em Mineração (ANM), Geologia Aplicada, Licenciamento Ambiental, Hidrogeologia e Geotecnia."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "A Geo-Conecta atende em todo o Brasil?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim, possuímos um corpo técnico altamente qualificado para atender demandas de consultoria geológica e mineral em todo o território nacional."
+              }
+            }
+          ]
+        }
+      ]
     </script>
   </head>
   <body class="overflow-x-hidden w-full relative">

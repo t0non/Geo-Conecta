@@ -9,8 +9,8 @@ const reviews = [
     affiliation: "Geóloga | CREA - MG 422462/D",
     quote:
       "Com mais de 15 anos de experiência em geologia aplicada, tenho dedicado minha carreira a transformar desafios complexos em soluções inovadoras para mineração e meio ambiente.",
-    imageSrc: "/imagens/Deisimara.png",
-    thumbnailSrc: "/imagens/Deisimara.png",
+    imageSrc: "/imagens/Deisimara.webp",
+    thumbnailSrc: "/imagens/Deisimara.webp",
   },
   {
     id: 2,
@@ -18,8 +18,8 @@ const reviews = [
     affiliation: "Engenheira Geóloga | CREA - MG 247354/D",
     quote:
       "Minha especialidade em engenharia geológica permite integrar conhecimento técnico com práticas sustentáveis, garantindo a viabilidade de projetos de grande escala.",
-    imageSrc: "/imagens/Joyce.png",
-    thumbnailSrc: "/imagens/Joyce.png",
+    imageSrc: "/imagens/Joyce.webp",
+    thumbnailSrc: "/imagens/Joyce.webp",
   },
   {
     id: 3,
@@ -27,8 +27,8 @@ const reviews = [
     affiliation: "Engenheiro Geólogo | CREA - MG 71811/D",
     quote:
       "A geotecnia é a base da segurança em mineração. Desenvolvo soluções que garantem estabilidade operacional e conformidade com as mais rigorosas normas técnicas.",
-    imageSrc: "/imagens/Alyson.png",
-    thumbnailSrc: "/imagens/Alyson.png",
+    imageSrc: "/imagens/Alyson.webp",
+    thumbnailSrc: "/imagens/Alyson.webp",
   },
   {
     id: 4,
@@ -36,8 +36,8 @@ const reviews = [
     affiliation: "Engenheira Sanitarista e Ambiental | CREA - MG 168001/D",
     quote:
       "Unindo expertise ambiental e segurança do trabalho, desenvolvo projetos que protegem tanto pessoas quanto o meio ambiente, criando valor sustentável para nossos clientes.",
-    imageSrc: "/imagens/Tamia.png",
-    thumbnailSrc: "/imagens/Tamia.png",
+    imageSrc: "/imagens/Tamia.webp",
+    thumbnailSrc: "/imagens/Tamia.webp",
   },
 ];
 

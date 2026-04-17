@@ -21,6 +21,8 @@ import { RadialOrbitalTimelineDemo } from "../components/ui/radial-orbital-timel
 
 import React, { Suspense, useMemo } from "react";
 import { testimonialsData, faqData, casesData } from "../data/homeData";
+import SEO from "../components/SEO";
+import { salvarLead } from "../lib/supabase";
 
 // [PERFORMANCE] Lazy Loading: Carregamento sob demanda (Code Splitting).
 // Retarda o download, parseamento e execução de JS de componentes que estão "abaixo da dobra" (below the fold).
@@ -96,7 +98,17 @@ export default function Home() {
     }
 
     const messageContent = `Olá! Vim pelo site da Geo-Conecta.\n\nNome: ${formData.name}\nUnidade de Negócio: ${formData.area}\n\n${formData.message}\n\nEmail: ${formData.email}`;
-    window.open(`https://wa.me/553193408908?text=${encodeURIComponent(messageContent)}`, "_blank");
+
+    // Salvar lead no Supabase (silencioso, não bloqueia o fluxo)
+    salvarLead({
+      nome: formData.name,
+      email: formData.email,
+      area_interesse: formData.area,
+      mensagem: formData.message,
+      pagina_origem: 'Home'
+    });
+
+    window.open(`https://wa.me/553173516826?text=${encodeURIComponent(messageContent)}`, "_blank");
     setFormData({ name: "", email: "", area: "Mineração & ANM", message: "" });
   };
 
@@ -111,6 +123,10 @@ export default function Home() {
 
   return (
     <div className="bg-white relative overflow-hidden">
+      <SEO 
+        title="Geo-Conecta | Consultoria Mineral, Geologia e Meio Ambiente"
+        description="Consultoria mineral premium especializada em processos na ANM, Geologia Aplicada e Licenciamento Ambiental. Blindamos seu patrimônio com rigor técnico."
+      />
       {/* Background Decorative Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <motion.div 
@@ -138,10 +154,10 @@ export default function Home() {
             playsInline 
             // [PERFORMANCE / LCP] Utilizar 'preload="none"' e 'poster'. O browser não precisará fazer download pesado do vídeo no carregamento primário bloqueando scripts.
             preload="none"
-            poster="/imagens/background_placeholder.jpg" // Fallback imediato do LCP
+            poster="/imagens/background_hero.webp" // Fallback imediato do LCP
             className="absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none will-change-transform"
           >
-            <source src="https://files.catbox.moe/i4rfkh.mp4" type="video/mp4" />
+            <source src="/imagens/sessao1home.mp4" type="video/mp4" />
           </video>
           
           {/* Dark Overlay for Video */}
@@ -174,17 +190,18 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
                 <HoverBorderGradient 
                   as="a" 
-                  href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Vim pelo site da Geo-Conecta e gostaria de falar com um geólogo especialista.")}`}
+                  href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Vim pelo site da Geo-Conecta e gostaria de falar com um geólogo especialista.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 sm:px-10 py-4 sm:py-5 font-bold text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-display flex items-center justify-center sm:justify-start group w-full sm:w-auto"
                 >
                   Falar com um Geólogo Especialista
-                  <ArrowRight className="ml-3 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-3 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </HoverBorderGradient>
                 <HoverBorderGradient 
                   as="a" 
                   href="#servicos" 
+                  aria-label="Ver todos os nossos serviços de geologia e mineração"
                   className="px-6 sm:px-10 py-4 sm:py-5 font-bold text-[11px] sm:text-[13px] uppercase tracking-[0.15em] font-display flex items-center justify-center w-full sm:w-auto"
                 >
                   Nossos Serviços
@@ -257,7 +274,7 @@ export default function Home() {
                   muted 
                   loop 
                   playsInline 
-                  preload="metadata"
+                  preload="none"
                   className="w-full h-full object-cover transition-all duration-1000"
                 >
                   <source src="/imagens/Sessao2.mp4" type="video/mp4" />
@@ -334,7 +351,8 @@ export default function Home() {
                       muted 
                       loop 
                       playsInline 
-                      preload="metadata"
+                      preload="none"
+                      title={`Vídeo demonstrativo de ${service.title}`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     >
                       <source src={service.image} type="video/mp4" />
@@ -342,7 +360,7 @@ export default function Home() {
                   ) : (
                     <img 
                       src={service.image} 
-                      alt={service.title}
+                      alt={`Imagem representativa do serviço de ${service.title}`}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -382,15 +400,15 @@ export default function Home() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 xl:px-20 text-center">
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-display font-light mb-8 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-light mb-8 leading-tight">
               Não achou o que precisa?
-            </h3>
+            </h2>
             <p className="text-xl text-zinc-500 mb-12 font-light max-w-2xl mx-auto">
               Se o seu projeto exige uma abordagem técnica específica ou alta complexidade regulatória, nossos especialistas estão prontos para desenhar a estratégia ideal.
             </p>
             <div className="flex justify-center">
               <a
-                href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Vim pelo site da Geo-Conecta e gostaria de solicitar uma consultoria personalizada.")}`}
+                href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Vim pelo site da Geo-Conecta e gostaria de solicitar uma consultoria personalizada.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-4 bg-[#25D366] hover:bg-[#128C7E] text-white px-10 sm:px-16 py-5 sm:py-6 rounded-2xl font-bold text-[13px] sm:text-[14px] uppercase tracking-[0.25em] font-display shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:scale-105 transition-all duration-500"
@@ -462,7 +480,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1 font-display">Central de Atendimento</div>
-                    <div className="text-lg font-medium">+55 (31) 93408-9088</div>
+                    <div className="text-lg font-medium">+55 (31) 7351-6826</div>
                   </div>
                 </div>
               </div>
@@ -512,9 +530,11 @@ export default function Home() {
                       className="w-full bg-transparent border-b border-zinc-200 py-4 focus:border-zinc-900 outline-none transition-colors font-light text-lg appearance-none"
                     >
                       <option>Mineração & ANM</option>
-                      <option>Geologia Estratégica</option>
-                      <option>Licenciamento Ambiental</option>
-                      <option>Hidrogeologia Avançada</option>
+                      <option>Geologia Aplicada</option>
+                      <option>Meio Ambiente & Licenciamento</option>
+                      <option>Hidrogeologia</option>
+                      <option>Estudos do Meio Físico</option>
+                      <option>Geotecnia & Estabilidade</option>
                     </select>
                   </div>
                   <div className="space-y-4">

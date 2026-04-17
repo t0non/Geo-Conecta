@@ -7,7 +7,7 @@ import { PlaceHolderImages } from "@/app/lib/placeholder-images";
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-mining");
-  const logoUrl = "https://files.catbox.moe/73bf5a.png";
+  const logoUrl = "/imagens/logo_nav.webp";
 
   return (
     <div className="flex flex-col min-h-screen selection:bg-accent selection:text-white bg-white">

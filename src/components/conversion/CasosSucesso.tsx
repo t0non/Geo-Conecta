@@ -130,7 +130,7 @@ export default function CasosSucesso({
 
           <div className="relative z-10 flex-shrink-0">
             <a
-              href={`https://wa.me/553193408908?text=${encodeURIComponent("Olá! Gostaria de solicitar uma auditoria para meu ativo mineral conforme vi nos Casos de Sucesso da Geo-Conecta.")}`}
+              href={`https://wa.me/553173516826?text=${encodeURIComponent("Olá! Gostaria de solicitar uma auditoria para meu ativo mineral conforme vi nos Casos de Sucesso da Geo-Conecta.")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-4 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-bold text-[13px] uppercase tracking-[0.2em] font-display shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:scale-105 transition-all duration-500"
