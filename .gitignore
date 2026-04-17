@@ -18,3 +18,5 @@ next-env.d.ts
 .genkit/*
 firebase-debug.log
 firestore-debug.log
+*.zip
+public/imagens/*.mp4
